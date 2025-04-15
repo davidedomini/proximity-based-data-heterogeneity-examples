@@ -4,7 +4,7 @@ import seaborn as sns
 import geopandas as gpd
 import matplotlib.pyplot as plt
 
-def get_data(data_path):
+def get_data_by_country(data_path):
     files = glob.glob(f'{data_path}/*.csv')
     data = {
         'country': [],
@@ -34,5 +34,5 @@ def plot_map(data):
 if __name__ == '__main__':
 
     data_path = 'data/electricitymaps'
-    data = get_data(data_path)
+    data = get_data_by_country(data_path)
     plot_map(data)
