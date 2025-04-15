@@ -21,7 +21,6 @@ def get_data_by_country(data_path):
 
 def plot_map(data):
     world = gpd.read_file('data/ne_110m_admin_0_countries/ne_110m_admin_0_countries.shp')
-    print(world['NAME'].sort_values().unique())
     merged = world.merge(data, how='left', left_on='NAME', right_on='country')
     merged = merged[merged['Carbon intensity gCO₂eq/kWh (direct)'].notnull()]
     fig, ax = plt.subplots(1, 1, figsize=(10, 6))
@@ -29,10 +28,11 @@ def plot_map(data):
     merged.plot(column='Carbon intensity gCO₂eq/kWh (direct)', ax=ax, legend=True, cmap='RdYlGn_r', edgecolor='black')
     ax.set_xlim([-15, 30])  # longitudes
     ax.set_ylim([35, 60])   # latitude
-    plt.savefig('world_map.pdf', dpi=300)
+    plt.savefig('world_map.pdf', dpi=300, bbox_inches='tight')
 
 if __name__ == '__main__':
 
+    plt.rcParams.update({'font.size': 20}) 
     data_path = 'data/electricitymaps'
     data = get_data_by_country(data_path)
     plot_map(data)
